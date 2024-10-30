@@ -19,7 +19,7 @@ function shp2nc_gadm28(varargin)
     gridRes=varargin{2};
 
     if isempty(ls(shpfile)); error('Error:file404',['Shpfile specified: ',shpfile,' not found!']); end
-    if ~isnumeric(gridRes); error('Error:NaN','Resolution wanted must be a positive number'); end
+    if ~isnumeric(gridRes) || gridRes<0; error('Error:NaN','Resolution must be a positive number!'); end
 
     gridDensity=round(1/gridRes);
     

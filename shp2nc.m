@@ -1,12 +1,13 @@
-%Convert GADM (version 3.6) shp file to mask in .nc
-%Written by JingXiang CHUNG on 1/2/2019
+%Convert shp file to mask in .nc
+%Written by JingXiang CHUNG on 01/02/2019
+%Updated on 03/12/2025
 %Reference: https://www.mathworks.com/help/map/vector-to-raster-data-conversion.html
 %Need to have snctools added to MATLAB for writting out the mask to netCDF
 
 clear; close all
 
-shpfile = 'D:\Research\Maps\Shapefile\Kelantan_Johor_Muda_River_Basin\Muda_WGS84';
-ncname  = 'Muda_mask.nc';
+shpfile = 'C:\Users\jingxiang\Documents\My_Works\Research\Projects\shp2nc\KRB.shp';
+ncname  = 'KRB.nc';
 gridDensity = 100; %Number of grids wanted for a degree
 
 %--------------------------------------------------------------------------------------
@@ -29,7 +30,9 @@ for p=1:polynum
     
     %Create grid from data
     [inGrid, inRefVec] = vec2mtx(inLat, inLon, gridDensity);
-    [latlim, lonlim] = limitm(inGrid, inRefVec);
+    % [latlim, lonlim] = limitm(inGrid, inRefVec);
+    latlim=inRefVec.LatitudeLimits;
+    lonlim=inRefVec.LongitudeLimits;
 
     inPt = round([1, 1, 3]);
     inGrid3 = encodem(inGrid, inPt,1);
